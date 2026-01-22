@@ -1,6 +1,6 @@
 ////Q.3 : A java program to create file using File Class and copy data from on file to other file.
 
-package JavaLabmannual;
+// package JavaLabmannual;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,11 +14,11 @@ public class FileCpy_03 {
         File sourceFile = new File("source.txt");
         if (sourceFile.createNewFile()) {
             System.out.println("Source file created: " + sourceFile.getName());
-            // Write some data to source file
-            FileWriter writer = new FileWriter(sourceFile);
-            writer.write("This is the source file.\n");
-            writer.write("Content will be copied to destination file.");
-            writer.close();
+            try ( // Write some data to source file
+                    FileWriter writer = new FileWriter(sourceFile)) {
+                writer.write("This is the source file.\n");
+                writer.write("Content will be copied to destination file.");
+            }
         } else {
             System.out.println("Source file already exists.");
         }
@@ -31,16 +31,15 @@ public class FileCpy_03 {
             System.out.println("Destination file already exists. Data will be overwritten.");
         }
 
-        // Copy data from source to destination
-        FileReader fr = new FileReader(sourceFile);
-        FileWriter fw = new FileWriter(destFile);
-
-        int ch;
-        while ((ch = fr.read()) != -1) {
-            fw.write(ch);
+        FileWriter fw;
+        try ( // Copy data from source to destination
+                FileReader fr = new FileReader(sourceFile)) {
+            fw = new FileWriter(destFile);
+            int ch;
+            while ((ch = fr.read()) != -1) {
+                fw.write(ch);
+            }
         }
-
-        fr.close();
         fw.close();
 
         System.out.println("Data copied successfully.");
