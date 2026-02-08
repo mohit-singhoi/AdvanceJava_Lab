@@ -12,6 +12,7 @@ public class TableInRange {
             for(int j =1;j<=10;j++){
                 table = i*j;
                 System.out.println(i + " X " + j + " = " + table);
+                // System.out.printf("%d x %-2d = %-4d\t", i, j, table);
             }
             System.out.println("\t");
 
@@ -22,9 +23,10 @@ public class TableInRange {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the Starting Point : ");
         int s = sc.nextInt();
-        System.out.println("Enter the Ending Point  :");
+        System.out.print("Enter the Ending Point  :");
         int e = sc.nextInt();
         PrintRangeTable(s, e);
+        sc.close();
     }
     
 }
